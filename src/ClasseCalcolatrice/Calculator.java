@@ -1,3 +1,5 @@
+package ClasseCalcolatrice;
+
 public abstract class Calculator {
     public static double evaluate(String expression){
         expression = expression.replace(" ", "");
@@ -19,8 +21,10 @@ public abstract class Calculator {
                         if(sub == null) sub = next == 0 ? expression.substring(next, expression.length()) : 
                                         expression.substring(next + 1, expression.length());
 
-                        double fact1 = Double.parseDouble(sub.substring(0, i - next - 1));
-                        double fact2 = Double.parseDouble(sub.substring(i - next, sub.length()));
+                        double fact1 = next != 0 ? Double.parseDouble(sub.substring(0, i - next - 1)) : 
+                                        Double.parseDouble(sub.substring(0, i));
+                        double fact2 = next != 0 ? Double.parseDouble(sub.substring(i - next, sub.length())) : 
+                                        Double.parseDouble(sub.substring(i + 1, sub.length()));
                         String product = hasDecimals((Double)(fact1 * fact2)) ? Double.toString(fact1 * fact2) : 
                                         Integer.toString(((Double)(fact1 * fact2)).intValue());
                         expression = expression.replace(sub, product);
@@ -37,8 +41,10 @@ public abstract class Calculator {
                         if(sub == null) sub = next == 0 ? expression.substring(next, expression.length()) : 
                                         expression.substring(next + 1, expression.length());
 
-                        double fact1 = Double.parseDouble(sub.substring(0, i - next - 1));
-                        double fact2 = Double.parseDouble(sub.substring(i - next, sub.length()));
+                        double fact1 = next != 0 ? Double.parseDouble(sub.substring(0, i - next - 1)) : 
+                                        Double.parseDouble(sub.substring(0, i));
+                        double fact2 = next != 0 ? Double.parseDouble(sub.substring(i - next, sub.length())) : 
+                                        Double.parseDouble(sub.substring(i + 1, sub.length()));
                         String division = hasDecimals((Double)(fact1 / fact2)) ? Double.toString(fact1 / fact2) : 
                                         Integer.toString(((Double)(fact1 / fact2)).intValue());
                         expression = expression.replace(sub, division);
@@ -86,5 +92,9 @@ public abstract class Calculator {
 
     private static boolean hasDecimals(Double n){
         return n.intValue() != n;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(evaluate("2/2"));
     }
 }
