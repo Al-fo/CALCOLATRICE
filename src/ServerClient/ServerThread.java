@@ -28,11 +28,15 @@ public class ServerThread extends Thread{
                     espressione = reader.readLine();
                     try{
                         double soluzione = Calculator.evaluate(espressione);
-                        writer.writeBytes("Soluzione: " + soluzione + "\n");
+                        writer.writeBytes("Soluzione = " + soluzione + "\n");
                     }catch(Exception e){
-                        if(espressione != "EXIT")   writer.writeBytes("Errore nel calcolo dell'espressione\n");
+                        if(!"EXIT".equalsIgnoreCase(espressione))   writer.writeBytes("Errore nel calcolo dell'espressione\n");
+                        else{
+                            writer.writeBytes("Chiudo la connessione");
+                            Server.close = true;
+                        }
                     }
-                }while(espressione != "EXIT");
+                }while(!"EXIT".equalsIgnoreCase(espressione));
         }catch(IOException e){
             e.printStackTrace();
         }

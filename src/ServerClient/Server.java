@@ -5,13 +5,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
+    public static boolean close = false;
     public static void main(String[] args) {
         try(ServerSocket serverSocket = new ServerSocket(4444)){
-            while(true){
+            ServerThread serverThread;
+            do{
                 Socket socket = serverSocket.accept();
-                ServerThread serverThread = new ServerThread(socket);
+                serverThread = new ServerThread(socket);
                 serverThread.start();
-            }
+            }while(!close);
         }catch (IOException e){
             e.printStackTrace();
         }

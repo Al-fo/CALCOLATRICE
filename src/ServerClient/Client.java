@@ -23,8 +23,8 @@ public class Client {
                 input = scanner.nextLine();
                 writer.writeBytes(input + "\n");
                 String risposta = reader.readLine();
-                System.out.println(risposta);
-            }while(input != "EXIT");
+                System.out.println("Dal Server: " + risposta);
+            }while(!"EXIT".equalsIgnoreCase(input));
 
         } catch (IOException e) {
             e.printStackTrace();
